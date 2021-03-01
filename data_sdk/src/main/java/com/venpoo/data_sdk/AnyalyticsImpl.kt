@@ -34,6 +34,7 @@ class AnyalyticsImpl : Anyalytics {
         map["network_name"] = NetWorkUtils.getNetworkTypeName(context)
         //地理区域不太好获取
         map["regional"] = "未知"
+        //1614584441.0
         map["behavior_time"] = System.currentTimeMillis()
         map["product_version"] = VersionUtils.getAppVersionName()
         map["user_id"] = user_id
@@ -184,7 +185,7 @@ class AnyalyticsImpl : Anyalytics {
         }))
     }
 
-    override fun payMoney(product_id: String, user_id: String, order_id:String,goods:String?,money:String?,method:String?,order_state:Boolean?) {
+    override fun payMoney(product_id: String, user_id: String, order_id:String,goods:String?,money:Float?,method:String?,order_state:Boolean?) {
         val map = HashMap<String, Any>()
         map["product_id"] = product_id
         map["channel_target"] = "Android"

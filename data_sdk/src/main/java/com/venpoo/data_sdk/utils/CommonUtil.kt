@@ -34,14 +34,15 @@ fun map2RequestJson(map: Map<String, Any>): RequestBody {
 }
 
 /**
- * 获取设备为一组
+ * 获取设备为一值
  */
 @SuppressLint("HardwareIds")
 fun getUuid(): String {
-    val uuid =  Build.MODEL + Settings.Secure.getString(
-        mContext.contentResolver,
-        Settings.Secure.ANDROID_ID
-    )
+    var uuid = Build.MODEL + Settings.Secure.getString(mContext.contentResolver, Settings.Secure.ANDROID_ID)
+    //传入的uuid为优先级最高
+    AnyalyticsManger.uuid?.let {
+        uuid = it
+    }
     return uuid
 }
 

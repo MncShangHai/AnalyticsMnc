@@ -10,18 +10,24 @@ import android.util.Log
  * @Date 2021/2/26 16:54
  */
 object AnyalyticsManger : Anyalytics {
-
     private val TAG = "AnyalyticsManger"
     lateinit var context: Context
 
     //实现类私有化
     private val anyalyticsImpl: AnyalyticsImpl  by lazy { AnyalyticsImpl() }
 
+    //对于不同产品的uuid
+    public var uuid:String?=null
+
+
     /**
      * 调用之前执行初始化
+     * @param context
+     * @param uuid 传入的uuid的优先级最高
      */
-    fun initSdk(context: Context) {
+    fun initSdk(context: Context,uuid:String?=null) {
         AnyalyticsManger.context = context.applicationContext
+        this.uuid = uuid
     }
 
     /**
@@ -29,7 +35,6 @@ object AnyalyticsManger : Anyalytics {
      * @param user_id 用户唯一值
      */
     override fun startApp(product_id: String, user_id: String) {
-        Log.d(TAG,"startApp()")
         anyalyticsImpl.startApp(product_id, user_id)
     }
 
@@ -64,11 +69,11 @@ object AnyalyticsManger : Anyalytics {
      * @param user_id
      * @param order_id 订单号（不可为空）
      * @param goods 商品
-     * @param money 金额
+     * @param money 金额,Float类型
      * @param method 支付方式
      * @param order_state 订单状态
      */
-    override fun payMoney(product_id: String, user_id: String,order_id:String,goods:String?,money:String?,method:String?,order_state:Boolean?) {
+    override fun payMoney(product_id: String, user_id: String,order_id:String,goods:String?,money:Float?,method:String?,order_state:Boolean?) {
         anyalyticsImpl.payMoney(product_id, user_id, order_id, goods, money, method, order_state)
     }
 

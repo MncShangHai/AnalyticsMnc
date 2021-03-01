@@ -42,16 +42,19 @@ interface Api {
     /**
      * 退出登录
      */
+    @POST("Save_data/Save_logout")
     fun unLogin(@Body body: RequestBody) : Observable<BaseBean>
 
     /**
      * 注册
      */
+    @POST("Save_data/Save_signin")
     fun register(@Body body: RequestBody) : Observable<BaseBean>
 
     /**
      * 付费
      */
+    @POST("Save_data/Save_pay")
     fun payMoney(@Body body: RequestBody) : Observable<BaseBean>
 
 

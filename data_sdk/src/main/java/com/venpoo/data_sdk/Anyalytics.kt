@@ -41,6 +41,6 @@ interface Anyalytics {
     /**
      * 付费
      */
-    fun payMoney(product_id: String, user_id: String, order_id:String,goods:String?,money:String?,method:String?,order_state:Boolean?)
+    fun payMoney(product_id: String, user_id: String, order_id:String,goods:String?,money:Float?,method:String?,order_state:Boolean?)
 
 }

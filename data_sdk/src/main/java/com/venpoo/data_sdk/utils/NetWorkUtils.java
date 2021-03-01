@@ -93,7 +93,6 @@ public class NetWorkUtils {
      * @param context context
      * @return FastMobileNetwork
      */
-    @SuppressLint("MissingPermission")
     private static boolean isFastMobileNetwork(Context context) {
         TelephonyManager telephonyManager
                 = (TelephonyManager) context.getSystemService(
@@ -102,42 +101,47 @@ public class NetWorkUtils {
             return false;
         }
 
-        switch (telephonyManager.getNetworkType()) {
-            case TelephonyManager.NETWORK_TYPE_1xRTT:
-                return false;
-            case TelephonyManager.NETWORK_TYPE_CDMA:
-                return false;
-            case TelephonyManager.NETWORK_TYPE_EDGE:
-                return false;
-            case TelephonyManager.NETWORK_TYPE_EVDO_0:
-                return true;
-            case TelephonyManager.NETWORK_TYPE_EVDO_A:
-                return true;
-            case TelephonyManager.NETWORK_TYPE_GPRS:
-                return false;
-            case TelephonyManager.NETWORK_TYPE_HSDPA:
-                return true;
-            case TelephonyManager.NETWORK_TYPE_HSPA:
-                return true;
-            case TelephonyManager.NETWORK_TYPE_HSUPA:
-                return true;
-            case TelephonyManager.NETWORK_TYPE_UMTS:
-                return true;
-            case TelephonyManager.NETWORK_TYPE_EHRPD:
-                return true;
-            case TelephonyManager.NETWORK_TYPE_EVDO_B:
-                return true;
-            case TelephonyManager.NETWORK_TYPE_HSPAP:
-                return true;
-            case TelephonyManager.NETWORK_TYPE_IDEN:
-                return false;
-            case TelephonyManager.NETWORK_TYPE_LTE:
-                return true;
-            case TelephonyManager.NETWORK_TYPE_UNKNOWN:
-                return false;
-            default:
-                return false;
+        if (ActivityCompat.checkSelfPermission(context, Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
+            switch (telephonyManager.getNetworkType()) {
+                case TelephonyManager.NETWORK_TYPE_1xRTT:
+                    return false;
+                case TelephonyManager.NETWORK_TYPE_CDMA:
+                    return false;
+                case TelephonyManager.NETWORK_TYPE_EDGE:
+                    return false;
+                case TelephonyManager.NETWORK_TYPE_EVDO_0:
+                    return true;
+                case TelephonyManager.NETWORK_TYPE_EVDO_A:
+                    return true;
+                case TelephonyManager.NETWORK_TYPE_GPRS:
+                    return false;
+                case TelephonyManager.NETWORK_TYPE_HSDPA:
+                    return true;
+                case TelephonyManager.NETWORK_TYPE_HSPA:
+                    return true;
+                case TelephonyManager.NETWORK_TYPE_HSUPA:
+                    return true;
+                case TelephonyManager.NETWORK_TYPE_UMTS:
+                    return true;
+                case TelephonyManager.NETWORK_TYPE_EHRPD:
+                    return true;
+                case TelephonyManager.NETWORK_TYPE_EVDO_B:
+                    return true;
+                case TelephonyManager.NETWORK_TYPE_HSPAP:
+                    return true;
+                case TelephonyManager.NETWORK_TYPE_IDEN:
+                    return false;
+                case TelephonyManager.NETWORK_TYPE_LTE:
+                    return true;
+                case TelephonyManager.NETWORK_TYPE_UNKNOWN:
+                    return false;
+                default:
+                    return false;
+            }
+        }else {
+            return false;
         }
+
     }
 
 

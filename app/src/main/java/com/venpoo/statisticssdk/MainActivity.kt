@@ -40,7 +40,7 @@ class MainActivity : AppCompatActivity() {
     //支付
     fun payMoney(view: View) {
         AnyalyticsManger.payMoney("ciwei","12345",
-        "asdasdasdasda3er2aefraf","商品-1","123","微信支付",true)
+        "asdasdasdasda3er2aefraf","商品-1",12.0f,"微信支付",true)
     }
 
 }
