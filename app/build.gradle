@@ -23,6 +23,21 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
+    //多渠道打包，mark相当于一个标记
+    flavorDimensions "mark"
+    productFlavors {
+        common { dimension "mark" }
+        xiaomi { dimension "mark" }
+        huawei { dimension "mark" }
+
+    }
+
+    productFlavors.all {
+        flavor -> flavor.manifestPlaceholders = [ATMAN_CHANNEL_VALUE: name]
+    }
+
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8

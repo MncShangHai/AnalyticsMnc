@@ -21,7 +21,6 @@ interface Api {
     fun test(): Observable<BaseBean>
 
 
-
     /**
      * 启动app
      */

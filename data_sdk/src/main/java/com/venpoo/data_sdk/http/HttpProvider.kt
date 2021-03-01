@@ -20,6 +20,10 @@ class HttpProvider {
         }
     }
 
+    init {
+        initConfig()
+    }
+
     var time: Long = TIME_OUT
     private fun initConfig() {
         retrofit = Retrofit.Builder()
@@ -45,11 +49,6 @@ class HttpProvider {
         return it
     }
 
-
-
-    init {
-        initConfig()
-    }
 
     fun <T> create(service: Class<T>): T {
         return retrofit.create(service)

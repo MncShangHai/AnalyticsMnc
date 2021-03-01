@@ -19,22 +19,22 @@ class AnyalyticsImpl : Anyalytics {
         CompositeDisposable()
     }
 
-    override fun startApp(product_id: String, user_id: String,channel_name:String?) {
-        val map = HashMap<String, String>()
+    override fun startApp(product_id: String, user_id: String) {
+        val map = HashMap<String, Any>()
         map["product_id"] = product_id
         map["channel_target"] = "Android"
-        map["MEID"] = getUuid()
+        map["uuid"] = getUuid()
         map["phone_model"] = Build.MODEL
         map["phone_resolution"] = getScreenMetrics()
         map["phone_system"] = Build.MANUFACTURER.toLowerCase()
-        channel_name?.let {
+        getChannelName()?.let {
             map["channel_name"] = it
         }
         map["operator_name"] = DeviceUtil.networkOperatorName
         map["network_name"] = NetWorkUtils.getNetworkTypeName(context)
         //地理区域不太好获取
         map["regional"] = "未知"
-        map["behavior_time"] = TimeUtils.nowTime
+        map["behavior_time"] = System.currentTimeMillis()
         map["product_version"] = VersionUtils.getAppVersionName()
         map["user_id"] = user_id
         compositeDisposable.add(HttpFactory.startApp(map2RequestJson(map), Consumer {
@@ -50,22 +50,22 @@ class AnyalyticsImpl : Anyalytics {
     }
 
 
-    override fun closeApp(product_id: String, user_id: String,channel_name:String?) {
-        val map = HashMap<String, String>()
+    override fun closeApp(product_id: String, user_id: String) {
+        val map = HashMap<String, Any>()
         map["product_id"] = product_id
         map["channel_target"] = "Android"
-        map["MEID"] = getUuid()
+        map["uuid"] = getUuid()
         map["phone_model"] = Build.MODEL
         map["phone_resolution"] = getScreenMetrics()
         map["phone_system"] = Build.MANUFACTURER.toLowerCase()
-        channel_name?.let {
+        getChannelName()?.let {
             map["channel_name"] = it
         }
         map["operator_name"] = DeviceUtil.networkOperatorName
         map["network_name"] = NetWorkUtils.getNetworkTypeName(context)
         //地理区域不太好获取
         map["regional"] = "未知"
-        map["behavior_time"] = TimeUtils.nowTime
+        map["behavior_time"] =  System.currentTimeMillis()
         map["product_version"] = VersionUtils.getAppVersionName()
         map["user_id"] = user_id
         compositeDisposable.add(HttpFactory.closeApp(map2RequestJson(map), Consumer {
@@ -80,22 +80,22 @@ class AnyalyticsImpl : Anyalytics {
         }))
     }
 
-    override fun login(product_id: String, user_id: String,channel_name:String?) {
-        val map = HashMap<String, String>()
+    override fun login(product_id: String, user_id: String) {
+        val map = HashMap<String, Any>()
         map["product_id"] = product_id
         map["channel_target"] = "Android"
-        map["MEID"] = getUuid()
+        map["uuid"] = getUuid()
         map["phone_model"] = Build.MODEL
         map["phone_resolution"] = getScreenMetrics()
         map["phone_system"] = Build.MANUFACTURER.toLowerCase()
-        channel_name?.let {
+        getChannelName()?.let {
             map["channel_name"] = it
         }
         map["operator_name"] = DeviceUtil.networkOperatorName
         map["network_name"] = NetWorkUtils.getNetworkTypeName(context)
         //地理区域不太好获取
         map["regional"] = "未知"
-        map["behavior_time"] = TimeUtils.nowTime
+        map["behavior_time"] =  System.currentTimeMillis()
         map["product_version"] = VersionUtils.getAppVersionName()
         map["user_id"] = user_id
         compositeDisposable.add(HttpFactory.login(map2RequestJson(map), Consumer {
@@ -110,22 +110,22 @@ class AnyalyticsImpl : Anyalytics {
         }))
     }
 
-    override fun unLogin(product_id: String, user_id: String,channel_name:String?) {
-        val map = HashMap<String, String>()
+    override fun unLogin(product_id: String, user_id: String) {
+        val map = HashMap<String, Any>()
         map["product_id"] = product_id
         map["channel_target"] = "Android"
-        map["MEID"] = getUuid()
+        map["uuid"] = getUuid()
         map["phone_model"] = Build.MODEL
         map["phone_resolution"] = getScreenMetrics()
         map["phone_system"] = Build.MANUFACTURER.toLowerCase()
-        channel_name?.let {
+        getChannelName()?.let {
             map["channel_name"] = it
         }
         map["operator_name"] = DeviceUtil.networkOperatorName
         map["network_name"] = NetWorkUtils.getNetworkTypeName(context)
         //地理区域不太好获取
         map["regional"] = "未知"
-        map["behavior_time"] = TimeUtils.nowTime
+        map["behavior_time"] =  System.currentTimeMillis()
         map["product_version"] = VersionUtils.getAppVersionName()
         map["user_id"] = user_id
         compositeDisposable.add(HttpFactory.unLogin(map2RequestJson(map), Consumer {
@@ -140,22 +140,22 @@ class AnyalyticsImpl : Anyalytics {
         }))
     }
 
-    override fun register(product_id: String, user_id: String,channel_name: String?,user_nickname:String?,user_sex:String?,user_birthday:String?,user_phone_number:String?) {
-        val map = HashMap<String, String>()
+    override fun register(product_id: String, user_id: String,user_nickname:String?,user_sex:String?,user_birthday:String?,user_phone_number:String?) {
+        val map = HashMap<String, Any>()
         map["product_id"] = product_id
         map["channel_target"] = "Android"
-        map["MEID"] = getUuid()
+        map["uuid"] = getUuid()
         map["phone_model"] = Build.MODEL
         map["phone_resolution"] = getScreenMetrics()
         map["phone_system"] = Build.MANUFACTURER.toLowerCase()
-        channel_name?.let {
+        getChannelName()?.let {
             map["channel_name"] = it
         }
         map["operator_name"] = DeviceUtil.networkOperatorName
         map["network_name"] = NetWorkUtils.getNetworkTypeName(context)
         //地理区域不太好获取
         map["regional"] = "未知"
-        map["behavior_time"] = TimeUtils.nowTime
+        map["behavior_time"] = System.currentTimeMillis()
         map["product_version"] = VersionUtils.getAppVersionName()
         map["user_id"] = user_id
 
@@ -184,22 +184,22 @@ class AnyalyticsImpl : Anyalytics {
         }))
     }
 
-    override fun payMoney(product_id: String, user_id: String, channel_name: String?, order_id:String,goods:String?,money:String?,method:String?,order_state:String?) {
-        val map = HashMap<String, String>()
+    override fun payMoney(product_id: String, user_id: String, order_id:String,goods:String?,money:String?,method:String?,order_state:Boolean?) {
+        val map = HashMap<String, Any>()
         map["product_id"] = product_id
         map["channel_target"] = "Android"
-        map["MEID"] = getUuid()
+        map["uuid"] = getUuid()
         map["phone_model"] = Build.MODEL
         map["phone_resolution"] = getScreenMetrics()
         map["phone_system"] = Build.MANUFACTURER.toLowerCase()
-        channel_name?.let {
+        getChannelName()?.let {
             map["channel_name"] = it
         }
         map["operator_name"] = DeviceUtil.networkOperatorName
         map["network_name"] = NetWorkUtils.getNetworkTypeName(context)
         //地理区域不太好获取
         map["regional"] = "未知"
-        map["behavior_time"] = TimeUtils.nowTime
+        map["behavior_time"] = System.currentTimeMillis()
         map["product_version"] = VersionUtils.getAppVersionName()
         map["user_id"] = user_id
 
@@ -214,9 +214,8 @@ class AnyalyticsImpl : Anyalytics {
             map["method"] = it
         }
         order_state?.let {
-            map["order_state"] = it
+            map["order_state"] = if (it) "SUCCESS" else "FAIL"
         }
-
         compositeDisposable.add(HttpFactory.payMoney(map2RequestJson(map), Consumer {
             //请求成功
             if (it.success!!){

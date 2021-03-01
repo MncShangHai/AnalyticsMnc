@@ -1,10 +1,11 @@
 package com.venpoo.data_sdk.utils
 
 import android.annotation.SuppressLint
-import android.graphics.Point
+import android.content.pm.ApplicationInfo
+import android.content.pm.PackageManager
 import android.os.Build
 import android.provider.Settings
-import android.view.WindowManager
+import android.util.Log
 import com.google.gson.Gson
 import com.venpoo.data_sdk.AnyalyticsManger
 import com.venpoo.data_sdk.JSONTYPE
@@ -49,4 +50,18 @@ fun getUuid(): String {
  */
 fun getScreenMetrics():String{
     return DensityUtil.getScreenWidth(mContext).toString()+"*"+DensityUtil.getScreenHeight(mContext)
+}
+
+/**
+ * 获取渠道包名称
+ */
+fun getChannelName():String?{
+    val appInfo: ApplicationInfo = mContext.packageManager.getApplicationInfo(mContext.packageName, PackageManager.GET_META_DATA)
+    var appChannel = appInfo.metaData.getString("ATMAN_CHANNEL")
+    if (appChannel.isNullOrEmpty()){
+        //Log.d("CommonUtil", "null")
+        appChannel = appInfo.metaData.getString("UMENG_CHANNEL")
+    }
+    //appChannel?.let { Log.d("CommonUtil", it) }
+    return appChannel
 }
