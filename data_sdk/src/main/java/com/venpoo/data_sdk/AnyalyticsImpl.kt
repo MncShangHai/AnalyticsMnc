@@ -1,11 +1,11 @@
 package com.venpoo.data_sdk
 
-import com.google.gson.Gson
+import android.os.Build
+import com.venpoo.data_sdk.AnyalyticsManger.context
 import com.venpoo.data_sdk.http.HttpFactory
+import com.venpoo.data_sdk.utils.*
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.functions.Consumer
-import okhttp3.MediaType.Companion.toMediaTypeOrNull
-import okhttp3.RequestBody.Companion.toRequestBody
 
 /**
  * @ClassName AnyalyticsImpl
@@ -19,45 +19,25 @@ class AnyalyticsImpl : Anyalytics {
         CompositeDisposable()
     }
 
-    /**
-     * #产品号(ciwei/haoduo/leci/skinDetection/wodunimo)
-    (刺猬错题本/好多曲谱/乐此乐谱/皮肤检测/我读你默)（不可为空）String
-     */
-    fun startApp(product_id:String,
-                 channel_target:String,
-                 MEID:String,
-                 phone_model:String?=null,
-                 phone_resolution:String?=null,
-                 phone_system:String?=null,
-                 channel_name:String?=null,) {
+    override fun startApp(product_id: String, user_id: String,channel_name:String?) {
         val map = HashMap<String, String>()
-        map["product_id"] = "get_android_uuid"
-        //键值对结构体
-        val objectString = Gson().toJson(map)
-        val requestBody = objectString.toRequestBody(JSONTYPE.toMediaTypeOrNull())
-        //post 转body发送
-        compositeDisposable.add(HttpFactory.startApp(requestBody, Consumer {
-            //请求成功
-            if (it.success!!){
-
-            }else{
-
-            }
-        }, Consumer {
-            //请求失败 500 或者处理失败
-        }))
-    }
-
-    override fun startApp() {
-        val map = HashMap<String, String>()
-        map["product_id"] = "ciwei"
+        map["product_id"] = product_id
         map["channel_target"] = "Android"
-        map["MEID"] = "test"
-        //键值对结构体
-        val objectString = Gson().toJson(map)
-        val requestBody = objectString.toRequestBody(JSONTYPE.toMediaTypeOrNull())
-        //post 转body发送
-        compositeDisposable.add(HttpFactory.startApp(requestBody, Consumer {
+        map["MEID"] = getUuid()
+        map["phone_model"] = Build.MODEL
+        map["phone_resolution"] = getScreenMetrics()
+        map["phone_system"] = Build.MANUFACTURER.toLowerCase()
+        channel_name?.let {
+            map["channel_name"] = it
+        }
+        map["operator_name"] = DeviceUtil.networkOperatorName
+        map["network_name"] = NetWorkUtils.getNetworkTypeName(context)
+        //地理区域不太好获取
+        map["regional"] = "未知"
+        map["behavior_time"] = TimeUtils.nowTime
+        map["product_version"] = VersionUtils.getAppVersionName()
+        map["user_id"] = user_id
+        compositeDisposable.add(HttpFactory.startApp(map2RequestJson(map), Consumer {
             //请求成功
             if (it.success!!){
 
@@ -69,35 +49,26 @@ class AnyalyticsImpl : Anyalytics {
         }))
     }
 
-    override fun closeApp() {
-        test()
-    }
 
-    override fun login() {
-        TODO("Not yet implemented")
-    }
-
-    override fun unLogin() {
-        TODO("Not yet implemented")
-    }
-
-    override fun register() {
-        TODO("Not yet implemented")
-    }
-
-    override fun payMoney() {
-        TODO("Not yet implemented")
-    }
-
-    fun test(){
-        //发送数据
+    override fun closeApp(product_id: String, user_id: String,channel_name:String?) {
         val map = HashMap<String, String>()
-        map["uuid"] = "get_android_uuid"
-        //键值对结构体
-        val objectString = Gson().toJson(map)
-        val requestBody = objectString.toRequestBody(JSONTYPE.toMediaTypeOrNull())
-        //post 转body发送
-        compositeDisposable.add(HttpFactory.open( Consumer {
+        map["product_id"] = product_id
+        map["channel_target"] = "Android"
+        map["MEID"] = getUuid()
+        map["phone_model"] = Build.MODEL
+        map["phone_resolution"] = getScreenMetrics()
+        map["phone_system"] = Build.MANUFACTURER.toLowerCase()
+        channel_name?.let {
+            map["channel_name"] = it
+        }
+        map["operator_name"] = DeviceUtil.networkOperatorName
+        map["network_name"] = NetWorkUtils.getNetworkTypeName(context)
+        //地理区域不太好获取
+        map["regional"] = "未知"
+        map["behavior_time"] = TimeUtils.nowTime
+        map["product_version"] = VersionUtils.getAppVersionName()
+        map["user_id"] = user_id
+        compositeDisposable.add(HttpFactory.closeApp(map2RequestJson(map), Consumer {
             //请求成功
             if (it.success!!){
 
@@ -108,5 +79,156 @@ class AnyalyticsImpl : Anyalytics {
             //请求失败 500 或者处理失败
         }))
     }
+
+    override fun login(product_id: String, user_id: String,channel_name:String?) {
+        val map = HashMap<String, String>()
+        map["product_id"] = product_id
+        map["channel_target"] = "Android"
+        map["MEID"] = getUuid()
+        map["phone_model"] = Build.MODEL
+        map["phone_resolution"] = getScreenMetrics()
+        map["phone_system"] = Build.MANUFACTURER.toLowerCase()
+        channel_name?.let {
+            map["channel_name"] = it
+        }
+        map["operator_name"] = DeviceUtil.networkOperatorName
+        map["network_name"] = NetWorkUtils.getNetworkTypeName(context)
+        //地理区域不太好获取
+        map["regional"] = "未知"
+        map["behavior_time"] = TimeUtils.nowTime
+        map["product_version"] = VersionUtils.getAppVersionName()
+        map["user_id"] = user_id
+        compositeDisposable.add(HttpFactory.login(map2RequestJson(map), Consumer {
+            //请求成功
+            if (it.success!!){
+
+            }else{
+
+            }
+        }, Consumer {
+            //请求失败 500 或者处理失败
+        }))
+    }
+
+    override fun unLogin(product_id: String, user_id: String,channel_name:String?) {
+        val map = HashMap<String, String>()
+        map["product_id"] = product_id
+        map["channel_target"] = "Android"
+        map["MEID"] = getUuid()
+        map["phone_model"] = Build.MODEL
+        map["phone_resolution"] = getScreenMetrics()
+        map["phone_system"] = Build.MANUFACTURER.toLowerCase()
+        channel_name?.let {
+            map["channel_name"] = it
+        }
+        map["operator_name"] = DeviceUtil.networkOperatorName
+        map["network_name"] = NetWorkUtils.getNetworkTypeName(context)
+        //地理区域不太好获取
+        map["regional"] = "未知"
+        map["behavior_time"] = TimeUtils.nowTime
+        map["product_version"] = VersionUtils.getAppVersionName()
+        map["user_id"] = user_id
+        compositeDisposable.add(HttpFactory.unLogin(map2RequestJson(map), Consumer {
+            //请求成功
+            if (it.success!!){
+
+            }else{
+
+            }
+        }, Consumer {
+            //请求失败 500 或者处理失败
+        }))
+    }
+
+    override fun register(product_id: String, user_id: String,channel_name: String?,user_nickname:String?,user_sex:String?,user_birthday:String?,user_phone_number:String?) {
+        val map = HashMap<String, String>()
+        map["product_id"] = product_id
+        map["channel_target"] = "Android"
+        map["MEID"] = getUuid()
+        map["phone_model"] = Build.MODEL
+        map["phone_resolution"] = getScreenMetrics()
+        map["phone_system"] = Build.MANUFACTURER.toLowerCase()
+        channel_name?.let {
+            map["channel_name"] = it
+        }
+        map["operator_name"] = DeviceUtil.networkOperatorName
+        map["network_name"] = NetWorkUtils.getNetworkTypeName(context)
+        //地理区域不太好获取
+        map["regional"] = "未知"
+        map["behavior_time"] = TimeUtils.nowTime
+        map["product_version"] = VersionUtils.getAppVersionName()
+        map["user_id"] = user_id
+
+        user_nickname?.let {
+            map["user_nickname"] = it
+        }
+        user_sex?.let {
+            map["user_sex"] = it
+        }
+        user_birthday?.let {
+            map["user_birthday"] = it
+        }
+        user_phone_number?.let {
+            map["user_phone_number"] = it
+        }
+
+        compositeDisposable.add(HttpFactory.register(map2RequestJson(map), Consumer {
+            //请求成功
+            if (it.success!!){
+
+            }else{
+
+            }
+        }, Consumer {
+            //请求失败 500 或者处理失败
+        }))
+    }
+
+    override fun payMoney(product_id: String, user_id: String, channel_name: String?, order_id:String,goods:String?,money:String?,method:String?,order_state:String?) {
+        val map = HashMap<String, String>()
+        map["product_id"] = product_id
+        map["channel_target"] = "Android"
+        map["MEID"] = getUuid()
+        map["phone_model"] = Build.MODEL
+        map["phone_resolution"] = getScreenMetrics()
+        map["phone_system"] = Build.MANUFACTURER.toLowerCase()
+        channel_name?.let {
+            map["channel_name"] = it
+        }
+        map["operator_name"] = DeviceUtil.networkOperatorName
+        map["network_name"] = NetWorkUtils.getNetworkTypeName(context)
+        //地理区域不太好获取
+        map["regional"] = "未知"
+        map["behavior_time"] = TimeUtils.nowTime
+        map["product_version"] = VersionUtils.getAppVersionName()
+        map["user_id"] = user_id
+
+        map["order_id"] = order_id
+        goods?.let {
+            map["goods"] = it
+        }
+        money?.let {
+            map["money"] = it
+        }
+        method?.let {
+            map["method"] = it
+        }
+        order_state?.let {
+            map["order_state"] = it
+        }
+
+        compositeDisposable.add(HttpFactory.payMoney(map2RequestJson(map), Consumer {
+            //请求成功
+            if (it.success!!){
+
+            }else{
+
+            }
+        }, Consumer {
+            //请求失败 500 或者处理失败
+        }))
+
+    }
+
 
 }

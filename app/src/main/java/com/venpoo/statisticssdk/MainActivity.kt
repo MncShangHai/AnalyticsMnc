@@ -12,11 +12,11 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun startApp(view: View) {
-        AnyalyticsManger.startApp()
+        AnyalyticsManger.startApp("ciwei","12345","xiaomi")
     }
 
     fun closeApp(view: View) {
-        AnyalyticsManger.closeApp()
+        AnyalyticsManger.closeApp("ciwei","12345")
     }
 
 }

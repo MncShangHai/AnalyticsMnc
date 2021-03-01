@@ -1,7 +1,5 @@
 package com.venpoo.data_sdk.http
 
-
-import com.venpoo.data_sdk.DEBUG_BASE_URL
 import com.venpoo.data_sdk.HTTP_POST_URL
 import com.venpoo.data_sdk.TIME_OUT
 import okhttp3.Interceptor
