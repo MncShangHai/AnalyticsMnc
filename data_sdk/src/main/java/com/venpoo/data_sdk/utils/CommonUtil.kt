@@ -66,3 +66,13 @@ fun getChannelName():String?{
     //appChannel?.let { Log.d("CommonUtil", it) }
     return appChannel
 }
+
+/**
+ * 获取系统时间
+ * @return 去掉最后三位
+ */
+fun getTime():Long{
+    var time = System.currentTimeMillis().toString()
+    time = time.removeRange(time.length-3,time.length)
+    return time.toLong()
+}

@@ -21,9 +21,8 @@ object VersionUtils {
         try {
             val pm: PackageManager = AnyalyticsManger.context.packageManager
             val pi: PackageInfo = pm.getPackageInfo(AnyalyticsManger.context.packageName, 0)
-            // versionName = pi.versionName;
             versioncode = pi.versionCode
-            Log.d("VersionInfo",versioncode.toString())
+            //Log.d("VersionInfo",versioncode.toString())
         } catch (e: Exception) {
             Log.e("VersionInfo", "Exception", e)
         }
@@ -39,7 +38,7 @@ object VersionUtils {
             val pm: PackageManager = AnyalyticsManger.context.packageManager
             val pi: PackageInfo = pm.getPackageInfo(AnyalyticsManger.context.packageName, 0)
             versionName = pi.versionName
-            Log.d("VersionInfo",versionName)
+            //Log.d("VersionInfo",versionName)
         } catch (e: Exception) {
             Log.e("VersionInfo", "Exception", e)
         }

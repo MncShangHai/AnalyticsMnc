@@ -1,6 +1,7 @@
 package com.venpoo.data_sdk
 
 import android.os.Build
+import android.util.Log
 import com.venpoo.data_sdk.AnyalyticsManger.context
 import com.venpoo.data_sdk.http.HttpFactory
 import com.venpoo.data_sdk.utils.*
@@ -15,6 +16,7 @@ import io.reactivex.rxjava3.functions.Consumer
  */
 class AnyalyticsImpl : Anyalytics {
 
+    private val TAG = "AnyalyticsImpl"
     private val compositeDisposable by lazy {
         CompositeDisposable()
     }
@@ -34,13 +36,12 @@ class AnyalyticsImpl : Anyalytics {
         map["network_name"] = NetWorkUtils.getNetworkTypeName(context)
         //地理区域不太好获取
         map["regional"] = "未知"
-        //1614584441.0
-        map["behavior_time"] = System.currentTimeMillis()
+        map["behavior_time"] = getTime()
         map["product_version"] = VersionUtils.getAppVersionName()
         map["user_id"] = user_id
         compositeDisposable.add(HttpFactory.startApp(map2RequestJson(map), Consumer {
             //请求成功
-            if (it.success!!){
+            if (it.result=="save success" || it.code==200){
 
             }else{
 
@@ -66,12 +67,12 @@ class AnyalyticsImpl : Anyalytics {
         map["network_name"] = NetWorkUtils.getNetworkTypeName(context)
         //地理区域不太好获取
         map["regional"] = "未知"
-        map["behavior_time"] =  System.currentTimeMillis()
+        map["behavior_time"] =  getTime()
         map["product_version"] = VersionUtils.getAppVersionName()
         map["user_id"] = user_id
         compositeDisposable.add(HttpFactory.closeApp(map2RequestJson(map), Consumer {
             //请求成功
-            if (it.success!!){
+            if (it.result=="save success" || it.code==200){
 
             }else{
 
@@ -96,12 +97,12 @@ class AnyalyticsImpl : Anyalytics {
         map["network_name"] = NetWorkUtils.getNetworkTypeName(context)
         //地理区域不太好获取
         map["regional"] = "未知"
-        map["behavior_time"] =  System.currentTimeMillis()
+        map["behavior_time"] =  getTime()
         map["product_version"] = VersionUtils.getAppVersionName()
         map["user_id"] = user_id
         compositeDisposable.add(HttpFactory.login(map2RequestJson(map), Consumer {
             //请求成功
-            if (it.success!!){
+            if (it.result=="save success" || it.code==200){
 
             }else{
 
@@ -126,12 +127,12 @@ class AnyalyticsImpl : Anyalytics {
         map["network_name"] = NetWorkUtils.getNetworkTypeName(context)
         //地理区域不太好获取
         map["regional"] = "未知"
-        map["behavior_time"] =  System.currentTimeMillis()
+        map["behavior_time"] =  getTime()
         map["product_version"] = VersionUtils.getAppVersionName()
         map["user_id"] = user_id
         compositeDisposable.add(HttpFactory.unLogin(map2RequestJson(map), Consumer {
             //请求成功
-            if (it.success!!){
+            if (it.result=="save success" || it.code==200){
 
             }else{
 
@@ -156,7 +157,7 @@ class AnyalyticsImpl : Anyalytics {
         map["network_name"] = NetWorkUtils.getNetworkTypeName(context)
         //地理区域不太好获取
         map["regional"] = "未知"
-        map["behavior_time"] = System.currentTimeMillis()
+        map["behavior_time"] = getTime()
         map["product_version"] = VersionUtils.getAppVersionName()
         map["user_id"] = user_id
 
@@ -175,7 +176,7 @@ class AnyalyticsImpl : Anyalytics {
 
         compositeDisposable.add(HttpFactory.register(map2RequestJson(map), Consumer {
             //请求成功
-            if (it.success!!){
+            if (it.result=="save success" || it.code==200){
 
             }else{
 
@@ -200,7 +201,7 @@ class AnyalyticsImpl : Anyalytics {
         map["network_name"] = NetWorkUtils.getNetworkTypeName(context)
         //地理区域不太好获取
         map["regional"] = "未知"
-        map["behavior_time"] = System.currentTimeMillis()
+        map["behavior_time"] = getTime()
         map["product_version"] = VersionUtils.getAppVersionName()
         map["user_id"] = user_id
 
@@ -219,8 +220,8 @@ class AnyalyticsImpl : Anyalytics {
         }
         compositeDisposable.add(HttpFactory.payMoney(map2RequestJson(map), Consumer {
             //请求成功
-            if (it.success!!){
-
+            if (it.result=="save success" || it.code==200){
+                //Log.d(TAG,"save success")
             }else{
 
             }

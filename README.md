@@ -30,6 +30,13 @@ aar无法依赖远程第三方库和其他aar,需要再次导入依赖库
     implementation "io.reactivex.rxjava3:rxjava:3.0.10"
     implementation 'io.reactivex.rxjava3:rxandroid:3.0.0'
 ```
+需要用到的权限
+
+```
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+```
+
 
 ### 调用
 

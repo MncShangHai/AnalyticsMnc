@@ -56,4 +56,5 @@ dependencies {
     api 'io.reactivex.rxjava3:rxandroid:3.0.0'
     api 'com.google.code.gson:gson:2.8.6'
 
+
 }

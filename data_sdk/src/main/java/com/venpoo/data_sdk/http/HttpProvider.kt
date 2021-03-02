@@ -2,13 +2,12 @@ package com.venpoo.data_sdk.http
 
 import com.venpoo.data_sdk.HTTP_POST_URL
 import com.venpoo.data_sdk.TIME_OUT
-import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory
+import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
-import java.util.logging.Level
+
 
 class HttpProvider {
     private lateinit var retrofit: Retrofit
@@ -35,8 +34,7 @@ class HttpProvider {
     }
 
     fun okHttpClient(): OkHttpClient = OkHttpClient().newBuilder()
-//        .addInterceptor(TokenInterceptor())
-        .addInterceptor(getLogInterceptor())
+        .addInterceptor(LogInterceptor())
         .connectTimeout(time, TimeUnit.MILLISECONDS)
         .readTimeout(time, TimeUnit.MILLISECONDS)
         .writeTimeout(time, TimeUnit.MILLISECONDS)
@@ -54,14 +52,4 @@ class HttpProvider {
         return retrofit.create(service)
     }
 
-    /**
-     * 获取日志拦截器
-     */
-    private fun getLogInterceptor(): Interceptor {
-        //http log 拦截器
-        return HttpLoggingInterceptor("StatisticsSDK").apply {
-            setPrintLevel(HttpLoggingInterceptor.Level.BODY)
-            setColorLevel(Level.INFO)
-        }
-    }
 }
