@@ -34,11 +34,11 @@ object AnyalyticsManger : Anyalytics {
      * @param product_id 产品名称(ciwei/haoduo/leci/skinDetection/wodunimo)
      * @param user_id 用户唯一值
      */
-    override fun startApp(product_id: String, user_id: String) {
+    override fun startApp(product_id: String, user_id: String?) {
         anyalyticsImpl.startApp(product_id, user_id)
     }
 
-    override fun closeApp(product_id: String, user_id: String) {
+    override fun closeApp(product_id: String, user_id: String?) {
         anyalyticsImpl.closeApp(product_id, user_id)
     }
 

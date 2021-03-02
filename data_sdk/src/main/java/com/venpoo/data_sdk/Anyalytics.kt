@@ -16,12 +16,12 @@ interface Anyalytics {
     /**
      * 启动app
      */
-    fun startApp(product_id:String,user_id:String)
+    fun startApp(product_id:String,user_id:String?)
 
     /**
      * 关闭app
      */
-    fun closeApp(product_id:String,user_id:String)
+    fun closeApp(product_id:String,user_id:String?)
 
     /**
      * 登录

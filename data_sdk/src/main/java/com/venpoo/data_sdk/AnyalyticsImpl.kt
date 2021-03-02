@@ -21,7 +21,7 @@ class AnyalyticsImpl : Anyalytics {
         CompositeDisposable()
     }
 
-    override fun startApp(product_id: String, user_id: String) {
+    override fun startApp(product_id: String, user_id: String?) {
         val map = HashMap<String, Any>()
         map["product_id"] = product_id
         map["channel_target"] = "Android"
@@ -38,7 +38,9 @@ class AnyalyticsImpl : Anyalytics {
         map["regional"] = "未知"
         map["behavior_time"] = getTime()
         map["product_version"] = VersionUtils.getAppVersionName()
-        map["user_id"] = user_id
+        user_id?.let {
+            map["user_id"] = it
+        }
         compositeDisposable.add(HttpFactory.startApp(map2RequestJson(map), Consumer {
             //请求成功
             if (it.result=="save success" || it.code==200){
@@ -52,7 +54,7 @@ class AnyalyticsImpl : Anyalytics {
     }
 
 
-    override fun closeApp(product_id: String, user_id: String) {
+    override fun closeApp(product_id: String, user_id: String?) {
         val map = HashMap<String, Any>()
         map["product_id"] = product_id
         map["channel_target"] = "Android"
@@ -69,7 +71,9 @@ class AnyalyticsImpl : Anyalytics {
         map["regional"] = "未知"
         map["behavior_time"] =  getTime()
         map["product_version"] = VersionUtils.getAppVersionName()
-        map["user_id"] = user_id
+        user_id?.let {
+            map["user_id"] = it
+        }
         compositeDisposable.add(HttpFactory.closeApp(map2RequestJson(map), Consumer {
             //请求成功
             if (it.result=="save success" || it.code==200){

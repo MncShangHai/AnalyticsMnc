@@ -46,8 +46,8 @@ class App : Application() {
 
     override fun onCreate() {
         super.onCreate()
-        //初始化
-        AnyalyticsManger.initSdk(applicationContext)
+        //初始化,uuid可不传
+        AnyalyticsManger.initSdk(applicationContext,"uuid")
     }
 
 }

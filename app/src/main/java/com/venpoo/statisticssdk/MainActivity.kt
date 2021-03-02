@@ -11,9 +11,9 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
     }
 
-    //打开app
+    //打开app，user_id可为null
     fun startApp(view: View) {
-        AnyalyticsManger.startApp("ciwei","12345")
+        AnyalyticsManger.startApp("ciwei",null)
     }
 
     //关闭app
