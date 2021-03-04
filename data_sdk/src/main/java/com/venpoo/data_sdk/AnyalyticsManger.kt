@@ -25,7 +25,7 @@ object AnyalyticsManger : Anyalytics {
      * @param context
      * @param uuid 传入的uuid的优先级最高
      */
-    fun initSdk(context: Context,uuid:String?=null) {
+    fun initSdk(context: Context,uuid:String?) {
         AnyalyticsManger.context = context.applicationContext
         this.uuid = uuid
     }
