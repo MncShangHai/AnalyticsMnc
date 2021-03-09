@@ -8,9 +8,13 @@
 ##### 打包aar方式
 选择data_sdk,Build Module"data_sdk",在output中找到生成的aar文件，在主app中进行依赖
 ```
-    implementation fileTree(include: ['*.jar'], dir: 'libs')
-    compile(name:'data_sdk-debug', ext:'aar')
+    implementation fileTree(dir: 'libs', include: ['*.aar', '*.jar'], exclude: [])
 ```
+或者
+```
+    implementation (name:'mnc_data_sdk', ext:'aar')
+```
+
 
 aar无法依赖远程第三方库和其他aar,需要再次导入依赖库
 ```
