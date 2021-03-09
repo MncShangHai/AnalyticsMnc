@@ -13,9 +13,6 @@ object HttpFactory {
 
     private val provider = HttpProvider.getInstance().create(Api::class.java)
 
-    fun open(consumer: Consumer<BaseBean>, error: Consumer<Throwable>): Disposable {
-        return provider.test().subscribeOnNextConsumerAndErrorConsumer(cacheExecutor, consumer,error)
-    }
 
     fun startApp(requestBody: RequestBody, consumer: Consumer<BaseBean>, error: Consumer<Throwable>): Disposable {
         return provider.startApp(requestBody)

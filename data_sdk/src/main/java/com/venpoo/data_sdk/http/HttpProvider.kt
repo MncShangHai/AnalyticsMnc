@@ -1,6 +1,9 @@
 package com.venpoo.data_sdk.http
 
-import com.venpoo.data_sdk.HTTP_POST_URL
+import android.os.Debug
+import com.venpoo.data_sdk.AnyalyticsManger.isDebug
+import com.venpoo.data_sdk.HTTP_DEBUG_URL
+import com.venpoo.data_sdk.HTTP_RELEASE_URL
 import com.venpoo.data_sdk.TIME_OUT
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
@@ -26,7 +29,7 @@ class HttpProvider {
     var time: Long = TIME_OUT
     private fun initConfig() {
         retrofit = Retrofit.Builder()
-            .baseUrl(HTTP_POST_URL)
+            .baseUrl(if (isDebug) HTTP_DEBUG_URL else HTTP_RELEASE_URL)
             .client(okHttpClient())
             .addConverterFactory(GsonConverterFactory.create())
             .addCallAdapterFactory(RxJava3CallAdapterFactory.create())

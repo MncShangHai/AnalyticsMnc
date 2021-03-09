@@ -17,16 +17,20 @@ object AnyalyticsManger : Anyalytics {
     private val anyalyticsImpl: AnyalyticsImpl  by lazy { AnyalyticsImpl() }
 
     //对于不同产品的uuid
-    public var uuid:String?=null
+    var uuid:String?=null
+    //调式模式
+    var isDebug = false
 
 
     /**
      * 调用之前执行初始化
      * @param context
      * @param uuid 传入的uuid的优先级最高
+     * @param isDebug 是否调式模式，调试模式将采用线下ip
      */
-    fun initSdk(context: Context,uuid:String?) {
+    fun initSdk(context: Context,uuid:String?,isDebug:Boolean) {
         AnyalyticsManger.context = context.applicationContext
+        this.isDebug = isDebug
         this.uuid = uuid
     }
 

@@ -17,44 +17,40 @@ import retrofit2.http.*
 interface Api {
 
 
-    @GET("prices")
-    fun test(): Observable<BaseBean>
-
-
     /**
      * 启动app
      */
-    @POST("Save_data/Save_start")
+    @POST("save_start")
     fun startApp(@Body body: RequestBody) : Observable<BaseBean>
 
     /**
      * 关闭app
      */
-    @POST("Save_data/Save_close")
+    @POST("save_close")
     fun closeApp(@Body body: RequestBody): Observable<BaseBean>
 
     /**
      * 登录
      */
-    @POST("Save_data/Save_login")
+    @POST("save_login")
     fun login(@Body body: RequestBody) : Observable<BaseBean>
 
     /**
      * 退出登录
      */
-    @POST("Save_data/Save_logout")
+    @POST("save_logout")
     fun unLogin(@Body body: RequestBody) : Observable<BaseBean>
 
     /**
      * 注册
      */
-    @POST("Save_data/Save_signin")
+    @POST("save_signin")
     fun register(@Body body: RequestBody) : Observable<BaseBean>
 
     /**
      * 付费
      */
-    @POST("Save_data/Save_pay")
+    @POST("save_pay")
     fun payMoney(@Body body: RequestBody) : Observable<BaseBean>
 
 

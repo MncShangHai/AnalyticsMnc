@@ -2,6 +2,7 @@ package com.venpoo.statisticssdk
 
 import android.app.Application
 import com.venpoo.data_sdk.AnyalyticsManger
+import com.venpoo.data_sdk.BuildConfig.DEBUG
 
 /**
  * @ClassName App
@@ -13,8 +14,8 @@ class App : Application() {
 
     override fun onCreate() {
         super.onCreate()
-        //初始化,uuid可不传
-        AnyalyticsManger.initSdk(applicationContext,"uuid")
+        //初始化,uuid可不传,isDebug表示是否调式模式
+        AnyalyticsManger.initSdk(applicationContext,null, DEBUG)
     }
 
 }

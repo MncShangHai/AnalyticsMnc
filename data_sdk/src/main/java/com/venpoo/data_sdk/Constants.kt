@@ -19,5 +19,6 @@
 package com.venpoo.data_sdk
 
 @JvmField val JSONTYPE = "application/json; charset=utf-8"
-@JvmField val HTTP_POST_URL = "http://192.168.50.215:5000/Common/"
+@JvmField val HTTP_DEBUG_URL = "http://192.168.50.215:5000/Common/"
+@JvmField val HTTP_RELEASE_URL = "http://139.196.34.161:5000/Save/"
 @JvmField val TIME_OUT = 30000L
