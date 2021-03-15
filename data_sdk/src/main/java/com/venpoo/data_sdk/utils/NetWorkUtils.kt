@@ -1,20 +1,13 @@
 package com.venpoo.data_sdk.utils
 
-import android.Manifest
 import android.annotation.TargetApi
 import android.content.Context
-import android.content.pm.PackageManager
 import android.net.ConnectivityManager
 import android.net.NetworkInfo
-import android.net.Proxy
 import android.net.wifi.WifiManager
 import android.os.Build
 import android.telephony.TelephonyManager
-import android.text.TextUtils
-import androidx.core.app.ActivityCompat
-import java.net.InetAddress
-import java.net.NetworkInterface
-import java.net.SocketException
+
 
 object NetWorkUtils {
     /**
@@ -22,9 +15,7 @@ object NetWorkUtils {
      */
     const val NETWORK_TYPE_NO_CONNECTION = -1231545315
     const val NETWORK_TYPE_WIFI = "wifi"
-    const val NETWORK_TYPE_3G = "eg"
-    const val NETWORK_TYPE_2G = "2g"
-    const val NETWORK_TYPE_WAP = "wap"
+    const val NETWORK_TYPE_MOBILE = "mobile_net"
     const val NETWORK_TYPE_UNKNOWN = "unknown"
     const val NETWORK_TYPE_DISCONNECT = "disconnect"
 
@@ -36,7 +27,7 @@ object NetWorkUtils {
      */
     fun getNetworkType(context: Context): Int {
         val connectivityManager = context.getSystemService(
-            Context.CONNECTIVITY_SERVICE
+                Context.CONNECTIVITY_SERVICE
         ) as ConnectivityManager
         val networkInfo = connectivityManager?.activeNetworkInfo
         return networkInfo?.type ?: -1
@@ -60,8 +51,7 @@ object NetWorkUtils {
             type = if ("WIFI".equals(typeName, ignoreCase = true)) {
                 NETWORK_TYPE_WIFI
             } else if ("MOBILE".equals(typeName, ignoreCase = true)) {
-                val proxyHost = Proxy.getDefaultHost()
-                if (TextUtils.isEmpty(proxyHost)) if (isFastMobileNetwork(context)) NETWORK_TYPE_3G else NETWORK_TYPE_2G else NETWORK_TYPE_WAP
+                NETWORK_TYPE_MOBILE
             } else {
                 NETWORK_TYPE_UNKNOWN
             }
@@ -69,43 +59,6 @@ object NetWorkUtils {
         return type
     }
 
-    /**
-     * Whether is fast mobile network
-     *
-     * @param context context
-     * @return FastMobileNetwork
-     */
-    private fun isFastMobileNetwork(context: Context): Boolean {
-        val telephonyManager = context.getSystemService(Context.TELEPHONY_SERVICE) as TelephonyManager ?: return false
-        return if (ActivityCompat.checkSelfPermission(context, Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
-            val netWorkType = if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
-                telephonyManager.dataNetworkType
-            } else {
-                telephonyManager.networkType
-            }
-            when (netWorkType) {
-                TelephonyManager.NETWORK_TYPE_1xRTT -> false
-                TelephonyManager.NETWORK_TYPE_CDMA -> false
-                TelephonyManager.NETWORK_TYPE_EDGE -> false
-                TelephonyManager.NETWORK_TYPE_EVDO_0 -> true
-                TelephonyManager.NETWORK_TYPE_EVDO_A -> true
-                TelephonyManager.NETWORK_TYPE_GPRS -> false
-                TelephonyManager.NETWORK_TYPE_HSDPA -> true
-                TelephonyManager.NETWORK_TYPE_HSPA -> true
-                TelephonyManager.NETWORK_TYPE_HSUPA -> true
-                TelephonyManager.NETWORK_TYPE_UMTS -> true
-                TelephonyManager.NETWORK_TYPE_EHRPD -> true
-                TelephonyManager.NETWORK_TYPE_EVDO_B -> true
-                TelephonyManager.NETWORK_TYPE_HSPAP -> true
-                TelephonyManager.NETWORK_TYPE_IDEN -> false
-                TelephonyManager.NETWORK_TYPE_LTE -> true
-                TelephonyManager.NETWORK_TYPE_UNKNOWN -> false
-                else -> false
-            }
-        } else {
-            false
-        }
-    }
 
     /**
      * 获取当前网络的状态
@@ -115,7 +68,7 @@ object NetWorkUtils {
      */
     fun getCurrentNetworkState(context: Context): NetworkInfo.State? {
         val networkInfo = (context.getSystemService(
-            Context.CONNECTIVITY_SERVICE
+                Context.CONNECTIVITY_SERVICE
         ) as ConnectivityManager).activeNetworkInfo
         return networkInfo?.state
     }
@@ -128,7 +81,7 @@ object NetWorkUtils {
      */
     fun getCurrentNetworkType(context: Context): Int {
         val networkInfo = (context.getSystemService(
-            Context.CONNECTIVITY_SERVICE
+                Context.CONNECTIVITY_SERVICE
         ) as ConnectivityManager).activeNetworkInfo
         return networkInfo?.type ?: NETWORK_TYPE_NO_CONNECTION
     }
@@ -141,7 +94,7 @@ object NetWorkUtils {
      */
     fun getCurrentNetworkSubtype(context: Context): Int {
         val networkInfo = (context.getSystemService(
-            Context.CONNECTIVITY_SERVICE
+                Context.CONNECTIVITY_SERVICE
         ) as ConnectivityManager).activeNetworkInfo
         return networkInfo?.subtype ?: NETWORK_TYPE_NO_CONNECTION
     }
@@ -588,7 +541,7 @@ object NetWorkUtils {
     @Throws(Exception::class)
     fun getWifiState(context: Context): Int {
         val wifiManager = context.getSystemService(
-            Context.WIFI_SERVICE
+                Context.WIFI_SERVICE
         ) as WifiManager
         return wifiManager?.wifiState ?: throw Exception("wifi device not found!")
     }
@@ -617,7 +570,7 @@ object NetWorkUtils {
         //如果当前wifi的状态和要设置的状态不一样
         if (isWifiOpen(context) != enable) {
             (context.getSystemService(
-                Context.WIFI_SERVICE
+                    Context.WIFI_SERVICE
             ) as WifiManager).isWifiEnabled = enable
         }
         return true
@@ -631,9 +584,9 @@ object NetWorkUtils {
      */
     fun isMobileNetworkOpen(context: Context): Boolean {
         return (context.getSystemService(
-            Context.CONNECTIVITY_SERVICE
+                Context.CONNECTIVITY_SERVICE
         ) as ConnectivityManager).getNetworkInfo(
-            ConnectivityManager.TYPE_MOBILE
+                ConnectivityManager.TYPE_MOBILE
         )!!.isConnected
     }
 
