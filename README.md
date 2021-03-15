@@ -1,5 +1,10 @@
 # AnalyticsMnc
 
+### Release Log
+[Version 1.1]
+1.修复Android11获取网络状态闪退
+
+
 ### 使用方式
 1. 直接导入module使用，在主app中依赖：implementation project(path: ':data_sdk')
 2. 打包成aar
