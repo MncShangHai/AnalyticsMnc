@@ -26,9 +26,7 @@ object NetWorkUtils {
      * @return 网络状态
      */
     fun getNetworkType(context: Context): Int {
-        val connectivityManager = context.getSystemService(
-                Context.CONNECTIVITY_SERVICE
-        ) as ConnectivityManager
+        val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         val networkInfo = connectivityManager?.activeNetworkInfo
         return networkInfo?.type ?: -1
     }
@@ -41,19 +39,22 @@ object NetWorkUtils {
      */
     fun getNetworkTypeName(context: Context): String {
         val manager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-        var networkInfo: NetworkInfo
-        var type = NETWORK_TYPE_DISCONNECT
-        if (manager.activeNetworkInfo.also { networkInfo = it!! } == null) {
-            return type
-        }
-        if (networkInfo.isConnected) {
-            val typeName = networkInfo.typeName
-            type = if ("WIFI".equals(typeName, ignoreCase = true)) {
-                NETWORK_TYPE_WIFI
-            } else if ("MOBILE".equals(typeName, ignoreCase = true)) {
-                NETWORK_TYPE_MOBILE
-            } else {
-                NETWORK_TYPE_UNKNOWN
+        val networkInfo = manager.activeNetworkInfo
+        var type = "unknown"
+        networkInfo?.let {
+            if (it.isConnected){
+                val typeName = it.typeName
+                type = when {
+                    "WIFI".equals(typeName, ignoreCase = true) -> {
+                        NETWORK_TYPE_WIFI
+                    }
+                    "MOBILE".equals(typeName, ignoreCase = true) -> {
+                        NETWORK_TYPE_MOBILE
+                    }
+                    else -> {
+                        NETWORK_TYPE_UNKNOWN
+                    }
+                }
             }
         }
         return type
