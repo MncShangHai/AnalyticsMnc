@@ -29,7 +29,7 @@ class HttpProvider {
     var time: Long = TIME_OUT
     private fun initConfig() {
         retrofit = Retrofit.Builder()
-            .baseUrl(if (isDebug) HTTP_DEBUG_URL else HTTP_RELEASE_URL)
+            .baseUrl(HTTP_RELEASE_URL)
             .client(okHttpClient())
             .addConverterFactory(GsonConverterFactory.create())
             .addCallAdapterFactory(RxJava3CallAdapterFactory.create())

@@ -10,6 +10,8 @@ android {
     defaultConfig {
         minSdkVersion 21
         targetSdkVersion 30
+        versionCode 120
+        versionName "1.2.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
@@ -21,6 +23,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
@@ -28,6 +31,22 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+    android.libraryVariants.all { variant ->
+        variant.outputs.all { //修改apk名
+            if (variant.name == "release"){
+                outputFileName = "DataSdk_Version${android.defaultConfig.versionName}_${variant.name}.aar"
+                println outputFileName
+
+            }else{
+                outputFileName = "DataSdk_Version${android.defaultConfig.versionName}_${variant.name}.aar"
+                println outputFileName
+            }
+
+        }
+    }
+
+
+
 }
 
 dependencies {
