@@ -33,7 +33,7 @@ class AnyalyticsImpl : Anyalytics {
             map["channel_name"] = it
         }
         map["operator_name"] = DeviceUtil.networkOperatorName
-        map["network_name"] = NetWorkUtils.getNetworkTypeName(context)
+        map["network_name"] = "null"
         //地理区域不太好获取
         map["regional"] = "未知"
         map["behavior_time"] = getTime()
@@ -66,7 +66,7 @@ class AnyalyticsImpl : Anyalytics {
             map["channel_name"] = it
         }
         map["operator_name"] = DeviceUtil.networkOperatorName
-        map["network_name"] = NetWorkUtils.getNetworkTypeName(context)
+        map["network_name"] = "null"
         //地理区域不太好获取
         map["regional"] = "未知"
         map["behavior_time"] =  getTime()
@@ -98,7 +98,7 @@ class AnyalyticsImpl : Anyalytics {
             map["channel_name"] = it
         }
         map["operator_name"] = DeviceUtil.networkOperatorName
-        map["network_name"] = NetWorkUtils.getNetworkTypeName(context)
+        map["network_name"] = "null"
         //地理区域不太好获取
         map["regional"] = "未知"
         map["behavior_time"] =  getTime()
@@ -128,7 +128,7 @@ class AnyalyticsImpl : Anyalytics {
             map["channel_name"] = it
         }
         map["operator_name"] = DeviceUtil.networkOperatorName
-        map["network_name"] = NetWorkUtils.getNetworkTypeName(context)
+        map["network_name"] = "null"
         //地理区域不太好获取
         map["regional"] = "未知"
         map["behavior_time"] =  getTime()
@@ -158,7 +158,7 @@ class AnyalyticsImpl : Anyalytics {
             map["channel_name"] = it
         }
         map["operator_name"] = DeviceUtil.networkOperatorName
-        map["network_name"] = NetWorkUtils.getNetworkTypeName(context)
+        map["network_name"] = "null"
         //地理区域不太好获取
         map["regional"] = "未知"
         map["behavior_time"] = getTime()
@@ -202,7 +202,7 @@ class AnyalyticsImpl : Anyalytics {
             map["channel_name"] = it
         }
         map["operator_name"] = DeviceUtil.networkOperatorName
-        map["network_name"] = NetWorkUtils.getNetworkTypeName(context)
+        map["network_name"] = "null"
         //地理区域不太好获取
         map["regional"] = "未知"
         map["behavior_time"] = getTime()
