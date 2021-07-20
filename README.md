@@ -1,18 +1,23 @@
 # AnalyticsMnc
 
 ### Release Log
-[Version 1.1]
-1.修复Android11获取网络状态闪退
+> [Version 1.4]
+>
+> 1.更新接口
+>
 
 
-### 使用方式
-1. 直接导入module使用，在主app中依赖：implementation project(path: ':data_sdk')
-2. 打包成aar
+> [Version 1.1]
+>
+> 1.修复Android11获取网络状态闪退
 
 
-##### 打包aar方式
-选择data_sdk,Build Module"data_sdk",在output中找到生成的aar文件，在主app中进行依赖
+### 快速接入
+
+**1.复制aar文件到libs目录下**
+
 ```
+    //导入全部aar，jar文件
     implementation fileTree(dir: 'libs', include: ['*.aar', '*.jar'], exclude: [])
 ```
 或者
@@ -20,8 +25,28 @@
     implementation (name:'mnc_data_sdk', ext:'aar')
 ```
 
+**2.使用远程依赖：**
 
-aar无法依赖远程第三方库和其他aar,需要再次导入依赖库
+
+```
+    //project build.gradle
+    allprojects {
+		repositories {
+			...
+			maven { url 'https://jitpack.io' }
+		}
+	}
+
+	//app build.gradle
+	dependencies {
+	        implementation 'com.github.MncShangHai:AnalyticsMnc:Tag'
+	}
+
+```
+
+---
+
+**需要依赖库**
 ```
     //okhttp
     implementation 'com.squareup.okhttp3:okhttp:4.9.0'
@@ -31,17 +56,15 @@ aar无法依赖远程第三方库和其他aar,需要再次导入依赖库
     implementation 'com.squareup.retrofit2:converter-scalars:2.9.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
     implementation 'com.squareup.retrofit2:adapter-rxjava3:2.9.0'
-    //Kotlin协程核心库
-    //implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.4.2"
-    //implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.2"
     //rxjava
-    implementation 'com.google.code.gson:gson:2.8.6'
     implementation "io.reactivex.rxjava3:rxjava:3.0.10"
     implementation 'io.reactivex.rxjava3:rxandroid:3.0.0'
+    implementation 'com.google.code.gson:gson:2.8.6'
 ```
-需要用到的权限
+**需要用到的权限**
 
 ```
+    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
 ```
@@ -50,25 +73,44 @@ aar无法依赖远程第三方库和其他aar,需要再次导入依赖库
 ### 调用
 
 1.在Application中初始化
-```
-class App : Application() {
 
-    override fun onCreate() {
-        super.onCreate()
-        //初始化,uuid可不传
-        AnyalyticsManger.initSdk(applicationContext,"uuid")
-    }
-
-}
+kotlin
 ```
+        AnyalyticsManger.setParams(
+            product = Procudt.HDQP,
+            uuid = "xxx",
+            uid = "xxx",
+            channel = "xxx"
+        ).init(this)
+```
+
+java
+```
+        AnyalyticsManger.INSTANCE.setParams(
+                Procudt.HDQP,
+                "xxx",
+                "xxx",
+                "xxx",
+                false
+        ).init(this);
+```
+
 2.调用：
 
 ```
     //打开app
     fun startApp(view: View) {
-        AnyalyticsManger.startApp("ciwei","12345")
+        AnyalyticsManger.startApp()
     }
 
 ```
+
+### 参数
+
+     * @param product 产品名称，通过Product枚举类设置
+     * @param uuid
+     * @param uid
+     * @param channel 打包渠道名称
+
 
 

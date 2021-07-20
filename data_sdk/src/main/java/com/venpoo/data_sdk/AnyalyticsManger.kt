@@ -41,10 +41,10 @@ object AnyalyticsManger : Anyalytics {
     /**
      * TODO 设置参数
      *
-     * @param product
+     * @param product 产品名称，Product
      * @param uuid
      * @param uid
-     * @param channel
+     * @param channel 打包渠道名称
      * @return
      */
     fun setParams(product:Procudt,uuid:String = "",uid:String = "", channel:String = "", isDebug:Boolean = false):AnyalyticsManger = apply {
