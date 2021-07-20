@@ -39,7 +39,7 @@
 
 	//app build.gradle
 	dependencies {
-	        implementation 'com.github.MncShangHai:AnalyticsMnc:Tag'
+	        implementation 'com.github.MncShangHai:AnalyticsMnc:1.4'
 	}
 
 ```
