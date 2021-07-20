@@ -1,5 +1,6 @@
 package com.venpoo.data_sdk.api
 
+import com.venpoo.data_sdk.AnyalyticsManger
 import com.venpoo.data_sdk.bean.BaseBean
 import io.reactivex.rxjava3.core.Observable
 import okhttp3.RequestBody
@@ -20,38 +21,21 @@ interface Api {
     /**
      * 启动app
      */
-    @POST("save_start")
-    fun startApp(@Body body: RequestBody) : Observable<BaseBean>
+    @POST("api/startover/{name}")
+    fun startApp(@Body body: RequestBody,@Path("name") name:String) : Observable<BaseBean>
 
     /**
      * 关闭app
      */
-    @POST("save_close")
-    fun closeApp(@Body body: RequestBody): Observable<BaseBean>
+    @POST("api/end/{name}")
+    fun closeApp(@Body body: RequestBody,@Path("name") name:String): Observable<BaseBean>
 
     /**
-     * 登录
+     * 进入页面
      */
-    @POST("save_login")
-    fun login(@Body body: RequestBody) : Observable<BaseBean>
+    @POST("api/pageview/{name}")
+    fun startPage(@Body body: RequestBody,@Path("name") name:String) : Observable<BaseBean>
 
-    /**
-     * 退出登录
-     */
-    @POST("save_logout")
-    fun unLogin(@Body body: RequestBody) : Observable<BaseBean>
-
-    /**
-     * 注册
-     */
-    @POST("save_signin")
-    fun register(@Body body: RequestBody) : Observable<BaseBean>
-
-    /**
-     * 付费
-     */
-    @POST("save_pay")
-    fun payMoney(@Body body: RequestBody) : Observable<BaseBean>
 
 
 }

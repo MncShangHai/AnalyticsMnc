@@ -11,36 +11,32 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
     }
 
-    //打开app，user_id可为null
+    //打开app
     fun startApp(view: View) {
-        AnyalyticsManger.startApp("ciwei",null)
+        AnyalyticsManger.startApp()
     }
 
     //关闭app
     fun closeApp(view: View) {
-        AnyalyticsManger.closeApp("ciwei","12345")
+        //没找到有效监听APP关闭方法
+        AnyalyticsManger.closeApp()
     }
 
-    //登录
-    fun login(view: View) {
-        AnyalyticsManger.login("ciwei","12345")
+    //打开页面
+    fun startPage(view: View) {
+        AnyalyticsManger.startPage("-----------")
     }
 
     //退出登录
     fun unLogin(view: View) {
-        AnyalyticsManger.unLogin("ciwei","12345")
     }
 
     //注册
     fun register(view: View) {
-        AnyalyticsManger.register("ciwei","12345",
-                "nickname","sex","1997-xxx","13677291450")
     }
 
     //支付
     fun payMoney(view: View) {
-        AnyalyticsManger.payMoney("ciwei","12345",
-        "asdasdasdasda3er2aefraf","商品-1",12.0f,"微信支付",true)
     }
 
 }

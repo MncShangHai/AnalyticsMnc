@@ -16,31 +16,16 @@ interface Anyalytics {
     /**
      * 启动app
      */
-    fun startApp(product_id:String,user_id:String?)
+    fun startApp()
 
     /**
      * 关闭app
      */
-    fun closeApp(product_id:String,user_id:String?)
+    fun closeApp()
 
     /**
-     * 登录
+     * 进入页面
      */
-    fun login(product_id:String,user_id:String)
-
-    /**
-     * 退出登录
-     */
-    fun unLogin(product_id:String,user_id:String)
-
-    /**
-     * 注册
-     */
-    fun register(product_id: String, user_id: String,user_nickname:String?,user_sex:String?,user_birthday:String?,user_phone_number:String?)
-
-    /**
-     * 付费
-     */
-    fun payMoney(product_id: String, user_id: String, order_id:String,goods:String?,money:Float?,method:String?,order_state:Boolean?)
+    fun startPage(pageName:String)
 
 }

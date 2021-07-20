@@ -1,7 +1,9 @@
 package com.venpoo.data_sdk
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.util.Log
+import java.lang.ref.WeakReference
 
 /**
  * @ClassName MySDK
@@ -10,75 +12,82 @@ import android.util.Log
  * @Date 2021/2/26 16:54
  */
 object AnyalyticsManger : Anyalytics {
-    private val TAG = "AnyalyticsManger"
-    lateinit var context: Context
 
-    //实现类私有化
+    private const val TAG = "AnyalyticsManger"
+
+    private var context: WeakReference<Context> ?= null
+
     private val anyalyticsImpl: AnyalyticsImpl  by lazy { AnyalyticsImpl() }
 
-    //对于不同产品的uuid
-    var uuid:String?=null
     //调式模式
     var isDebug = false
 
+    var productName:String = ""
+
+    var uuid:String = ""
+
+    var uid:String = ""
+
+    var channel:String = ""
+
+
+    //？？？
+    val netWork:String = "未知"
+    val location:String = "未知"
+    val imei:String = "null"
+    val idfa:String = "null"
+
 
     /**
-     * 调用之前执行初始化
-     * @param context
-     * @param uuid 传入的uuid的优先级最高
-     * @param isDebug 是否调式模式，调试模式将采用线下ip
+     * TODO 设置参数
+     *
+     * @param product
+     * @param uuid
+     * @param uid
+     * @param channel
+     * @return
      */
-    fun initSdk(context: Context,uuid:String?,isDebug:Boolean) {
-        AnyalyticsManger.context = context.applicationContext
-        this.isDebug = isDebug
+    fun setParams(product:Procudt,uuid:String = "",uid:String = "", channel:String = "", isDebug:Boolean = false):AnyalyticsManger = apply {
+        when(product){
+            Procudt.HDQP -> productName = "haoduoqupu"
+            Procudt.LECI -> productName = "leciyuepu"
+            Procudt.WDNM -> productName = "wodunimo"
+            Procudt.CWCT -> productName = "ciweicuotiben"
+            Procudt.PXB  -> productName = "pixiaobao"
+        }
         this.uuid = uuid
+        this.uid = uid
+        this.channel = channel
+        this.isDebug = isDebug
     }
 
     /**
-     * @param product_id 产品名称(ciwei/haoduo/leci/skinDetection/wodunimo)
-     * @param user_id 用户唯一值
+     * TODO 在Application中初始化
+     * @param context applicationContext
+     * @param uuid 不同产品对的应用户标识唯一值
+     * @param isDebug 是否调式模式，调试时可以关闭
      */
-    override fun startApp(product_id: String, user_id: String?) {
-        anyalyticsImpl.startApp(product_id, user_id)
+    fun init(context: Context) {
+        this.context = WeakReference(context.applicationContext)
     }
 
-    override fun closeApp(product_id: String, user_id: String?) {
-        anyalyticsImpl.closeApp(product_id, user_id)
+    fun getContext():Context{
+        return context?.get()!!
     }
 
-    override fun login(product_id: String, user_id: String ) {
-        anyalyticsImpl.login(product_id, user_id)
+    override fun startApp() {
+        if (isDebug) return
+        anyalyticsImpl.startApp()
     }
 
-    override fun unLogin(product_id: String, user_id: String ) {
-        anyalyticsImpl.unLogin(product_id, user_id)
+    override fun closeApp() {
+        if (isDebug) return
+        anyalyticsImpl.closeApp()
     }
 
-
-    /**
-     * @param product_id
-     * @param user_id
-     * @param user_nickname 用户昵称
-     * @param user_sex 用户性别
-     * @param user_birthday 用户生日
-     * @param user_phone_number 用户电话号码
-     */
-    override fun register(product_id: String, user_id: String,user_nickname:String?,user_sex:String?,user_birthday:String?,user_phone_number:String?) {
-        anyalyticsImpl.register(product_id, user_id,user_nickname, user_sex, user_birthday, user_phone_number)
-    }
-
-
-    /**
-     * @param product_id
-     * @param user_id
-     * @param order_id 订单号（不可为空）
-     * @param goods 商品
-     * @param money 金额,Float类型
-     * @param method 支付方式
-     * @param order_state 订单状态
-     */
-    override fun payMoney(product_id: String, user_id: String,order_id:String,goods:String?,money:Float?,method:String?,order_state:Boolean?) {
-        anyalyticsImpl.payMoney(product_id, user_id, order_id, goods, money, method, order_state)
+    override fun startPage(pageName: String) {
+        if (isDebug) return
+        anyalyticsImpl.startPage(pageName)
     }
 
 

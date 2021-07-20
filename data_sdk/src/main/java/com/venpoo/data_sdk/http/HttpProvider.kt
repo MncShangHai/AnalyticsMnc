@@ -1,8 +1,5 @@
 package com.venpoo.data_sdk.http
 
-import android.os.Debug
-import com.venpoo.data_sdk.AnyalyticsManger.isDebug
-import com.venpoo.data_sdk.HTTP_DEBUG_URL
 import com.venpoo.data_sdk.HTTP_RELEASE_URL
 import com.venpoo.data_sdk.TIME_OUT
 import okhttp3.OkHttpClient
@@ -36,7 +33,7 @@ class HttpProvider {
             .build()
     }
 
-    fun okHttpClient(): OkHttpClient = OkHttpClient().newBuilder()
+    private fun okHttpClient(): OkHttpClient = OkHttpClient().newBuilder()
         .addInterceptor(LogInterceptor())
         .connectTimeout(time, TimeUnit.MILLISECONDS)
         .readTimeout(time, TimeUnit.MILLISECONDS)
@@ -49,7 +46,6 @@ class HttpProvider {
         it.time = time
         return it
     }
-
 
     fun <T> create(service: Class<T>): T {
         return retrofit.create(service)
